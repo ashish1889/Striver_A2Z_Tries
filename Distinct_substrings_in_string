@@ -76,3 +76,64 @@ v
 ve
 ver
 count is:28
+
+// implementation using Trie:
+
+#include <iostream>  
+#include <string>    
+
+using namespace std;
+
+struct Node{
+    Node* link[26];
+    bool flag = false;
+    
+    bool containsKey(char ch){
+        return link[ch - 'a']!=NULL;
+    }
+    Node* get(char ch)
+    {
+        return link[ch - 'a'];
+    }
+    
+    void put(char ch,Node* node){
+        link[ch -'a']= node;
+    }
+    
+    void setEnd()
+    {
+        flag = true;
+    }
+    
+    bool isEnd(){
+        return flag;
+    }
+    
+};
+
+int countDistinctSubstring(string& s){
+    int count = 0;
+    Node* root = new Node();
+    int n = s.length();
+    
+    for(int i = 0;i<n;i++)
+    { Node* node = root;
+        for(int j = i;j<n;j++)
+        {
+            if(!node->containsKey(s[j]))
+            {
+                count++;
+                node->put(s[j],new Node());
+            }
+            node= node->get(s[j]);
+        }
+        
+    }
+    return count+1;
+}
+
+int main(){
+    string s= "striver";
+    cout<<"count :"<<countDistinctSubstring(s);
+    return 0;
+}
