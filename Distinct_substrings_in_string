@@ -1,0 +1,78 @@
+//https://takeuforward.org/data-structure/number-of-distinct-substrings-in-a-string-using-trie/
+
+//TC:O(N*N) SC:O(N*N)
+
+#include <iostream>
+#include <set>
+#include <string>
+using namespace std;
+
+set<string> countDistinctSubstrings(const string& s)
+{
+    set<string> st;
+    int n = s.length();
+    
+    for(int i = 0;i<n;i++)
+    {   string str = "";
+        for(int j = i;j<n;j++)
+        {
+            str+= s[j];
+            st.insert(str);
+        }
+    }
+    
+    return st;
+    
+    
+}
+
+int main()
+{
+    //std::cout<<"Hello World";
+    
+    set<string> result;
+    string s = "striver";
+    int count = 0;
+    
+    result = countDistinctSubstrings(s);
+    
+    for(const auto& str: result)
+    {
+        cout<<str<< endl;
+        count++;
+    }
+    
+    cout<<"count is:"<<count+1<<endl;
+
+    return 0;
+}
+
+O/p:
+e
+er
+i
+iv
+ive
+iver
+r
+ri
+riv
+rive
+river
+s
+st
+str
+stri
+striv
+strive
+striver
+t
+tr
+tri
+triv
+trive
+triver
+v
+ve
+ver
+count is:28
